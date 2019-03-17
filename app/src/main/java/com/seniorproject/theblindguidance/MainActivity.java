@@ -5,20 +5,17 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.BroadcastReceiver;
 import android.media.MediaPlayer;
-import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothSocket;
 import android.bluetooth.BluetoothDevice;
-import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,13 +27,12 @@ public class MainActivity extends AppCompatActivity {
 
     private Button connect;
     private TextView data;
-    private Handler bt;
+    private Handler btHandler;
     private BluetoothAdapter btAdapter;
     private BluetoothSocket btSocket = null;
     private ArrayAdapter<String> btArrayAdapter;
     private MediaPlayer MP;
 
-    private boolean connected;
     private StringBuilder sensorsData;
     private static final UUID uuid = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
     private final String address = "00:12:02:09:05:73";
@@ -62,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         registerReceiver(btReceiver, new IntentFilter(BluetoothDevice.ACTION_FOUND));
 
 
-        bt = new Handler() {
+        btHandler = new Handler() {
             public void handleMessage(android.os.Message msg) {
                 if (msg.what == 0) {
                     String Message = (String) msg.obj;
@@ -91,7 +87,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
                 if (msg.what == 1) {
-                    connected = true;
                     Toast.makeText(getBaseContext(), "connected.", Toast.LENGTH_LONG).show();
                     connect.setVisibility(View.INVISIBLE);
                     data.setVisibility(View.VISIBLE);
@@ -138,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
         //ENABLE BT if its NOT ENABLED.
         if (!btAdapter.isEnabled()) {
             Intent enableBT = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            startActivityForResult(enableBT, 1);
+            startActivityForResult(enableBT,1);
         }
         if (btAdapter.isDiscovering()) {
             playSound("plzwait");
@@ -191,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
                 if (!fail) {
                     btConnectedThread = new ConnectThread(btSocket);
                     btConnectedThread.start();
-                    bt.obtainMessage(1).sendToTarget();
+                    btHandler.obtainMessage(1).sendToTarget();
                 }
 
             }
@@ -203,7 +198,6 @@ public class MainActivity extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
             if (BluetoothDevice.ACTION_FOUND.equals(intent.getAction())) {
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-                // add the name to the list
                 btArrayAdapter.add(device.getName() + "\n" + device.getAddress());
                 btArrayAdapter.notifyDataSetChanged();
 
@@ -214,7 +208,7 @@ public class MainActivity extends AppCompatActivity {
     public class ConnectThread extends Thread {
         private final BluetoothSocket Socket;
         private final InputStream in;
-        private final OutputStream out;
+        private final OutputStream out; // we don't send data via bluetooth, we're only receiving.
 
         public ConnectThread(BluetoothSocket Socket) {
             this.Socket = Socket;
@@ -241,7 +235,7 @@ public class MainActivity extends AppCompatActivity {
                     if (bytes != 0) {
                         bytes = in.read(buffer);
                         String Message = new String(buffer, 0, bytes);
-                        bt.obtainMessage(0, bytes, -1, Message).sendToTarget();
+                        btHandler.obtainMessage(0, bytes, -1, Message).sendToTarget();
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
