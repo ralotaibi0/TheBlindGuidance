@@ -7,11 +7,27 @@
     tools:context=".MainActivity">
 
     <LinearLayout
-        android:layout_width="395dp"
-        android:layout_height="276dp"
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:orientation="vertical"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="79dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/Data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/datas"
+            tools:layout_editor_absoluteX="187dp"
+            tools:layout_editor_absoluteY="98dp" />
 
         <Button
             android:id="@+id/Connect"
@@ -21,13 +37,6 @@
             tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="363dp" />
 
-        <TextView
-            android:id="@+id/Data"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/datas"
-            tools:layout_editor_absoluteX="187dp"
-            tools:layout_editor_absoluteY="98dp" />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

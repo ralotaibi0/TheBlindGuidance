@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private static final UUID uuid = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
     private final String address = "00:12:02:09:05:73";
     private final String name = "linvor";
+    private long rightTime=0,leftTime=0,stopTime=0,currentTime=0;
 
     private ConnectThread btConnectedThread;
 
@@ -65,23 +66,30 @@ public class MainActivity extends AppCompatActivity {
                     sensorsData.append(Message);
                     int endOfMessage = sensorsData.lastIndexOf("*");
                     if (endOfMessage > 3) {
-                        if (sensorsData.charAt(0) == '#') {
+                        if ((sensorsData.charAt(0) == '#') && (sensorsData.length() < 10)) {
                             String actualData = sensorsData.substring(1, endOfMessage);
                             String[] sensors = actualData.split("!");
                             int rightSensor = Integer.parseInt(sensors[0]);
                             int leftSensor = Integer.parseInt(sensors[1]);
                             data.setText("Right Sensor : " + sensors[0] + " Left Sensor : " + sensors[1]);
+                            currentTime = System.currentTimeMillis();
+                            if ((leftTime <= currentTime) && (rightTime <= currentTime) && (stopTime <= currentTime)){
+
 
                             if ((rightSensor < 70 && rightSensor > 2) && (leftSensor < 70 && leftSensor > 2)) {
+                                stopTime=System.currentTimeMillis()+5000;
                                 playSound("stop");
                             } else {
                                 if (rightSensor < 70 && rightSensor > 2) {
+                                    leftTime=System.currentTimeMillis()+5000;
                                     playSound("slightlyleft");
                                 } else if (leftSensor < 70 && leftSensor > 2) {
+                                    rightTime=System.currentTimeMillis()+5000;
                                     playSound("slightlyright");
                                 }
 
                             }
+                        }
                         }
                         sensorsData.delete(0, sensorsData.length());
                     }
@@ -123,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
             MP = MediaPlayer.create(MainActivity.this, R.raw.bg_slightlyright);
         }
 
-        if (!MP.isPlaying()){
+        if ((MP != null) && !MP.isPlaying()){
             MP.start();
         }
     }
