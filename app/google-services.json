@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "28743379497",
+    "firebase_url": "https://the-blind-guidan-1552906062410.firebaseio.com",
+    "project_id": "the-blind-guidan-1552906062410",
+    "storage_bucket": "the-blind-guidan-1552906062410.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:28743379497:android:b3d9066cafb73cc6",
+        "android_client_info": {
+          "package_name": "com.seniorproject.theblindguidance"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "28743379497-j0alugtrmp8sp7ffd4bcsnprpkqsb0gr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9rHjno_4Xp5Ck3sOFF1ROj9eeT1shQu0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

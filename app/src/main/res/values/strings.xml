@@ -1,9 +1,10 @@
 <resources>
-    <string name="app_name">TheBlindGuidance</string>
+    <string name="google_API">AIzaSyB1yUT8f0sVufdOq2GESiCIGaT-k6w0G_c</string>
+    <string name="places_API">AIzaSyBp3iJmRY44TT4t5Zo5B1KqbfSF-ARsjAk</string>
+    <string name="app_name">The Blind Guidance</string>
     <string name="connect">Connect</string>
     <string name="status">Status</string>
     <string name="datas">DATA</string>
     <string name="data">Data :</string>
-    <string name="mapTemp">MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP MAP</string>
 
 </resources>
