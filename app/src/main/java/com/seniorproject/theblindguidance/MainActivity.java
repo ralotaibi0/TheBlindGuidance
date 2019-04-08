@@ -313,7 +313,7 @@ public class MainActivity extends AppCompatActivity {
             directions.destination(destination).setCallback(new PendingResult.Callback<DirectionsResult>() {
                 @Override
                 public void onResult(DirectionsResult result) {
-                    speak("its going to take you "+result.routes[0].legs[0].duration.inSeconds + " Seconds", "none", false);
+                    speak("its going to take you " + result.routes[0].legs[0].duration.inSeconds + " Seconds", "none", false);
                     startTrip(destination);
                 }
 
@@ -563,6 +563,8 @@ public class MainActivity extends AppCompatActivity {
                                 sayPlacesNames();
                             } else if (r.get(0).contains("no")) {
                                 speak("Okay, if you want to go to one of the nearby places, just click on the screen.", "none", false);
+                            } else {
+                                speak("please say yes or no.", "nearbyPlaces", true);
                             }
                         } else if (messageType.equals("offerPlace")) {
                             if (r.get(0).contains("yes")) {
@@ -574,8 +576,10 @@ public class MainActivity extends AppCompatActivity {
                                 NOPlacesOffered++;
                                 sayPlacesNames();
                             } else if (r.get(0).contains("stop")) {
-                                NOPlacesOffered=0;
+                                NOPlacesOffered = 0;
                                 speak("Okay.", "none", false);
+                            } else {
+                                speak("please say yes or no, or stop.", "offerPlace", true);
                             }
                         }
                     }
@@ -642,7 +646,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-
 
 
 }
